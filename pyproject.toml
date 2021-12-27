@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "citi_challenge"
+version = "0.1.0"
+description = "Basic NLP tokenizer"
+authors = ["MAC <miguelangelcabrera1@hotmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.0"
+spacy = "^3.2.1"
+djangorestframework = "^3.13.1"
+pytest = "^6.2.5"
+pytest-django = "^4.5.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
