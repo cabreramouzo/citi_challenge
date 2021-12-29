@@ -12,7 +12,7 @@ def test_text_tokenize_sample_en():
 def test_text_tokenize_sample_es():
     text = "Agente Smith: Cómo Ud. puede ver, le hemos echado un ojo desde hace algún tiempo, Sr. Anderson."
     tkns = get_tokens(text=text, lang="es")
-    res = ["Agente","Smith","Cómo","usted","puede","ver","le","hemos","echado","un","ojo","desde","hace","algún","tiempo","Señor","Anderson"]
+    res = ["Agente","Smith","Cómo","usted","puede","ver","le","hemos","echado","un","ojo","desde","hace","algún","tiempo","señor","Anderson"]
     print("Output->", tkns)
     print("Sample ->", res)
     assert( tkns == res)
