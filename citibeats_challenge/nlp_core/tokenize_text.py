@@ -48,7 +48,7 @@ def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     for token in doc:
         print(token.text, token.pos_, token.dep_, token.norm_)
         if token.pos_ != "PUNCT" and token.pos_ != "SYM":
-            if token.pos_ == "AUX" or token.pos_ == "PROPN":
+            if token.pos_ == "AUX":
                 spacy_tokens.append(token.norm_)
             else:
                 spacy_tokens.append(token.text)
