@@ -25,11 +25,11 @@ def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
     elif lang == "es":
         return "es_core_news_sm"
     elif lang == "pt":
-        return "pt_core_web_sm"
+        return "pt_core_news_sm"
     elif lang == "fr":
-        return "fr_core_web_sm"
+        return "fr_core_news_sm"
     elif lang == "ca":
-        return "ca_core_web_sm"
+        return "ca_core_news_sm"
 
 
 def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
