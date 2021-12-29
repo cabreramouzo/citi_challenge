@@ -2,7 +2,7 @@ from rest_framework import status, views
 from rest_framework.response import Response
 
 from api.serializers import TokenSerializer, TextSerializer
-from core import tokenize_text
+from nlp_core import tokenize_text
 
 
 class TokensView(views.APIView):
