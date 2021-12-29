@@ -16,3 +16,20 @@ def test_text_tokenize_sample_es():
     print("Output->", tkns)
     print("Sample ->", res)
     assert( tkns == res)
+
+def test_text_tokenize_sample_fr():
+    text = "Agent Smith : Comme vous pouvez le voir, nous vous surveillons depuis un certain temps, M. Anderson."
+    tkns = get_tokens(text=text, lang="fr")
+    res = ["Agent","Smith","Comme","vous","pouvez","le","voir","nous","vous","surveillons","depuis","un","certain","temps","M.","Anderson"]
+    print("Output->", tkns)
+    print("Sample ->", res)
+    assert( tkns == res)
+
+    def xtest_text_tokenize_sample_fr_le_petit_prince():
+        text = '''Lorsque j'avais six ans j'ai vu, une fois, une magnifique image, dans un livre sur la Forêt Vierge qui s'appelait "Histoires Vécues". Ça représentait un serpent boa qui avalait un fauve. Voilà la copie du dessin.'''
+        tkns = get_tokens(text=text, lang="es")
+        res = ["Agente","Smith","Cómo","usted","puede","ver","le","hemos","echado","un","ojo","desde","hace","algún","tiempo","señor","Anderson"]
+        print("Output->", tkns)
+        print("Sample ->", res)
+        assert( tkns == res)
+
