@@ -34,10 +34,10 @@ def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
 
 def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     """
-    return a list of tokens from a given text and lang
-    :param text:
-    :param lang:
-    :return:
+    Returns a list of tokens from a given text and language params.
+    :param text: The text to tokenize in English, Spanish, Portuguese or French.
+    :param lang: The ISO code of the lenguage (optional).
+    :return: A list of tokens of the input text.
     """
     # Load English tokenizer, tagger, parser and NER
     core_web_sm = _get_core_web_sm_by_lang(lang)
