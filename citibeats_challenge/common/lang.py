@@ -9,3 +9,4 @@ class LanguageISO(str, Enum):
     Spanish = "es"
     Portuguese = "pt"
     French = "fr"
+    Catalan = "ca"
