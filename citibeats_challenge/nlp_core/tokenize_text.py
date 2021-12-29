@@ -15,7 +15,7 @@ def _add_contraction_rules(nlp: Language, lang: Optional[str] = "en") -> Languag
             special_case_sr_senor = [{ORTH: "Sr.", NORM: "señor"}]
             special_case_ud_usted = [{ORTH: "ud.", NORM: "usted"}]
             nlp.tokenizer.add_special_case("Sr.", special_case_sr_senor)
-            nlp.tokenizer.add_special_case("ud.", special_case_ud_usted)
+            nlp.tokenizer.add_special_case("ud", special_case_ud_usted)
         return nlp
 
 def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
