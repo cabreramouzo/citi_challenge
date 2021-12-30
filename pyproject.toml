@@ -12,7 +12,6 @@ djangorestframework = "^3.13.1"
 pytest = "^6.2.5"
 pytest-django = "^4.5.2"
 django-environ = "^0.8.1"
-contractions = "^0.0.58"
 spacy-langdetect = "^0.1.2"
 
 [tool.poetry.dev-dependencies]

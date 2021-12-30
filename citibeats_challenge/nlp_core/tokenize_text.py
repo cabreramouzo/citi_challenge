@@ -4,7 +4,6 @@ import spacy
 from spacy import Language
 from spacy.symbols import ORTH, LEMMA, POS, TAG, NORM
 from spacy.lang import en
-import contractions
 
 
 def _add_contraction_rules(nlp: Language, lang: Optional[str] = "en") -> Language:
@@ -177,8 +176,6 @@ def _perform_tokenization_rules_for_en(doc) -> List[str]:
         print(token.text, token.pos_, token.dep_, token.norm_, token.lemma_)
         print(token.text)
         print(token.norm_)
-        print(contractions.fix(token.text))
-        print(contractions.fix(token.norm_))
         if token.pos_ != "PUNCT" and token.pos_ != "SYM":
             if token.pos_ == "AUX" or (token.pos_ == "PRON" and token.dep_ == "nsubj"):
                 spacy_tokens.append(contractions.fix(token.norm_))
@@ -272,13 +269,6 @@ def _perform_tokenization_rules_by_lang(doc, lang = "en") -> List[str]:
 
     return spacy_tokens
 
-def perform_contractions_expansion_en(text: str) -> str:
-    l = text.split()
-    s = ""
-    for w in l:
-        s += contractions.fix(w) + " "
-    return s
-
 def _perform_contractions_expansion_by_lang(lang = "en", text = "") -> str:
 
     if lang == "en":
@@ -303,7 +293,6 @@ def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     # Load English tokenizer, tagger, parser and NER
     core_web_sm = _get_core_web_sm_by_lang(lang)
     nlp = spacy.load(core_web_sm)
-    nlp = _add_contraction_rules(nlp, lang)
 
     text_expanded = _perform_contractions_expansion_by_lang(lang, text)
 

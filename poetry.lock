@@ -1,12 +1,4 @@
 [[package]]
-name = "anyascii"
-version = "0.3.0"
-description = "Unicode to ASCII transliteration"
-category = "main"
-optional = false
-python-versions = ">=3.3"
-
-[[package]]
 name = "asgiref"
 version = "3.4.1"
 description = "ASGI specs, helper code, and adapters"
@@ -95,17 +87,6 @@ description = "Cross-platform colored terminal text."
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[[package]]
-name = "contractions"
-version = "0.0.58"
-description = "Fixes contractions such as `you're` to you `are`"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-textsearch = ">=0.0.21"
 
 [[package]]
 name = "cymem"
@@ -293,14 +274,6 @@ description = "library with cross-python path, ini-parsing, io, code, log facili
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[[package]]
-name = "pyahocorasick"
-version = "1.4.2"
-description = "pyahocorasick is a fast and memory efficient library for exact or approximate multi-pattern string search.  With the ahocorasick.Automaton class, you can find multiple key strings occurrences at once in some input text.  You can use it as a plain dict-like Trie or convert a Trie to an automaton for efficient Aho-Corasick search.  Implemented in C and tested on Python 2.7 and 3.4+.  Works on Linux, Mac and Windows. BSD-3-clause license."
-category = "main"
-optional = false
-python-versions = "*"
 
 [[package]]
 name = "pydantic"
@@ -517,18 +490,6 @@ python-versions = ">=3.6"
 catalogue = ">=2.0.3,<2.1.0"
 
 [[package]]
-name = "textsearch"
-version = "0.0.21"
-description = "Find strings/words in text; convenience and C speed"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-anyascii = "*"
-pyahocorasick = "*"
-
-[[package]]
 name = "thinc"
 version = "8.0.13"
 description = "A refreshing functional take on deep learning, compatible with your favorite libraries"
@@ -647,13 +608,9 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "e453986a3507ba06bc853b46973e51aaeac6cba38c551bfc02d853ee76b9bb53"
+content-hash = "0339cbcba6c7178808bdb44a0a842cee36220c70e9df3f3db8bedd21379fedf5"
 
 [metadata.files]
-anyascii = [
-    {file = "anyascii-0.3.0-py3-none-any.whl", hash = "sha256:68f6917fe5b22caf7dde8551b838e5e17d5e3c96c55734485699bd03ad92237f"},
-    {file = "anyascii-0.3.0.tar.gz", hash = "sha256:24f27431fb64c6c93a33125fb66f8cba007a5262bc1faabeafeda5f4bb70b593"},
-]
 asgiref = [
     {file = "asgiref-3.4.1-py3-none-any.whl", hash = "sha256:ffc141aa908e6f175673e7b1b3b7af4fdb0ecb738fc5c8b88f69f055c2415214"},
     {file = "asgiref-3.4.1.tar.gz", hash = "sha256:4ef1ab46b484e3c706329cedeff284a5d40824200638503f5768edb6de7d58e9"},
@@ -703,10 +660,6 @@ click = [
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
-]
-contractions = [
-    {file = "contractions-0.0.58-py2.py3-none-any.whl", hash = "sha256:c17a508e4d2a841ca9428001f272d5976f8e34b752fc8218f0ce73c19b185670"},
-    {file = "contractions-0.0.58.tar.gz", hash = "sha256:cd06a029e9ba6a486c8a3ed3f9c77173cf7c19b2ff9a21d8ed1a87e9e07661e1"},
 ]
 cymem = [
     {file = "cymem-2.0.6-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:700540b68e96a7056d0691d467df2bbaaf0934a3e6fe2383669998cbee19580a"},
@@ -910,9 +863,6 @@ py = [
     {file = "py-1.11.0-py2.py3-none-any.whl", hash = "sha256:607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"},
     {file = "py-1.11.0.tar.gz", hash = "sha256:51c75c4126074b472f746a24399ad32f6053d1b34b68d2fa41e558e6f4a98719"},
 ]
-pyahocorasick = [
-    {file = "pyahocorasick-1.4.2.tar.gz", hash = "sha256:88f79307c74ae6a84f8d88c2522a082f1d21c425762aba7f7e4d14dd431d2fb7"},
-]
 pydantic = [
     {file = "pydantic-1.8.2-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:05ddfd37c1720c392f4e0d43c484217b7521558302e7069ce8d318438d297739"},
     {file = "pydantic-1.8.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:a7c6002203fe2c5a1b5cbb141bb85060cbff88c2d78eccbc72d97eb7022c43e4"},
@@ -1015,10 +965,6 @@ srsly = [
     {file = "srsly-2.4.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d4bc36962208810d29c72156e0573dcbabd9914f42fede42217ccfcadd96beb6"},
     {file = "srsly-2.4.2-cp39-cp39-win_amd64.whl", hash = "sha256:090072830cf2d5bd6765705a02463f586db8a586805d1c31a72080f971d311b5"},
     {file = "srsly-2.4.2.tar.gz", hash = "sha256:2aba252292767875086adf4e4380e27b024d73655456f796f8e07eb3a4dfacc0"},
-]
-textsearch = [
-    {file = "textsearch-0.0.21-py2.py3-none-any.whl", hash = "sha256:4b8b946b0ed8986b651a0d6ca526c3c5bc777bcc9d83312dfad3b10635f00de9"},
-    {file = "textsearch-0.0.21.tar.gz", hash = "sha256:2d501541effd2e3698391b48596676333bb61f59c6090ce52184bcd945f2bdb0"},
 ]
 thinc = [
     {file = "thinc-8.0.13-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:f818b9f012169a11beb3561c43dc52080588e50cf495733e492efab8b9b4135e"},
