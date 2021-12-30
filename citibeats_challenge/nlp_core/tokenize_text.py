@@ -27,6 +27,16 @@ TOKEN_NORMALIZED_CASES_FR = (
     AUX,
 )
 
+TOKEN_NORMALIZED_CASES_PT = (
+    ADV,
+    AUX,
+    ADJ,
+    PRON,
+)
+
+TOKEN_LEMMA_CASES_PT = (
+    ADV,
+)
 
 
 def _add_contraction_rules(nlp: Language, lang: Optional[str] = "en") -> Language:
@@ -211,20 +221,16 @@ def _perform_tokenization_rules_for_en(doc) -> List[str]:
 
 def _perform_tokenization_rules_for_es(doc) -> List[str]:
 
-    spacy_tokens = []
+    result_tokens = []
     for token in doc:
-        print(token.text, token.pos_, token.dep_, token.norm_, token.lemma_)
-        if token.pos_ != "PUNCT" and token.pos_ != "SYM":
-            if token.pos_ == "AUX" or (token.pos_ == "PRON" and token.dep_ == "nsubj"):
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "NOUN" and token.dep_ == "appos":
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "ADV" and token.dep_ == "advmod":
-                spacy_tokens.append(token.norm_)
-            else:
-                spacy_tokens.append(token.text)
-
-    return spacy_tokens
+        print(f"text: {token.text}, pos: {token.pos_}, dep: {token.dep_}, norm: {token.norm_}, lemma: {token.lemma_}, morph: {token.morph}")
+        if not token.is_punct and not token.is_quote and token.pos != SYM:
+            result_tokens.append(
+                token.norm_
+                if token.pos in TOKEN_NORMALIZED_CASES_EN
+                else token.text
+            )
+    return result_tokens
 
 
 def _perform_tokenization_rules_for_fr(doc) -> List[str]:
@@ -244,35 +250,29 @@ def _perform_tokenization_rules_for_fr(doc) -> List[str]:
 
 
 def _perform_tokenization_rules_for_pt(doc) -> List[str]:
-    spacy_tokens = []
+    result_tokens = []
     for token in doc:
-        print(token.text, token.pos_, token.dep_, token.norm_, token.lemma_)
-        if token.pos_ != "PUNCT" and token.pos_ != "SYM":
-            if token.pos_ == "AUX" or (token.pos_ == "PRON" and token.dep_ == "nsubj"):
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "NOUN" and token.dep_ == "appos":
-                spacy_tokens.append(token.norm_)
-            else:
-                spacy_tokens.append(token.text)
-
-    return spacy_tokens
+        print(f"text: {token.text}, pos: {token.pos_}, dep: {token.dep_}, norm: {token.norm_}, lemma: {token.lemma_}, morph: {token.morph}")
+        if not token.is_punct and not token.is_quote and token.pos != SYM:
+            if token.pos in TOKEN_LEMMA_CASES_PT:
+                result_tokens.append(token.lemma_)
+            elif token.pos in TOKEN_NORMALIZED_CASES_PT:
+                result_tokens.append(token.norm_)
+            else: result_tokens.append(token.text)
+    return result_tokens
 
 def _perform_tokenization_rules_for_ca(doc) -> List[str]:
 
-    spacy_tokens = []
+    result_tokens = []
     for token in doc:
-        print(token.text, token.pos_, token.dep_, token.norm_, token.lemma_)
-        if token.pos_ != "PUNCT" and token.pos_ != "SYM":
-            if token.pos_ == "AUX" or (token.pos_ == "PRON" and token.dep_ == "nsubj"):
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "NOUN" and token.dep_ == "appos":
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "ADV" and token.dep_ == "advmod":
-                spacy_tokens.append(token.norm_)
-            else:
-                spacy_tokens.append(token.text)
-
-    return spacy_tokens
+        print(f"text: {token.text}, pos: {token.pos_}, dep: {token.dep_}, norm: {token.norm_}, lemma: {token.lemma_}, morph: {token.morph}")
+        if not token.is_punct and not token.is_quote and token.pos != SYM:
+            result_tokens.append(
+                token.norm_
+                if token.pos in TOKEN_NORMALIZED_CASES_EN
+                else token.text
+            )
+    return result_tokens
 
 def _perform_tokenization_rules_by_lang(doc: spacy.tokens.Doc, lang = LanguageISO.English) -> List[str]:
 
