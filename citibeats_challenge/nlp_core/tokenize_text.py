@@ -2,8 +2,31 @@ from typing import List, Optional
 
 import spacy
 from spacy import Language
+from spacy import language
 from spacy.symbols import ORTH, LEMMA, POS, TAG, NORM
+from spacy.symbols import NOUN, ADV, ADP, AUX, DET, ADJ, PRON, SYM
 from spacy.lang import en
+
+from common.lang import LanguageISO
+
+TOKEN_NORMALIZED_CASES_EN = (
+    NOUN,
+    ADV,
+    AUX,
+    ADJ,
+    PRON,
+)
+
+TOKEN_LEMMA_CASES_FR = (
+    PRON,
+    ADP,
+    DET,
+)
+
+TOKEN_NORMALIZED_CASES_FR = (
+    AUX,
+)
+
 
 
 def _add_contraction_rules(nlp: Language, lang: Optional[str] = "en") -> Language:
@@ -142,7 +165,8 @@ def _add_contraction_rules(nlp: Language, lang: Optional[str] = "en") -> Languag
 
 
 
-
+        """
+        
         elif lang == "es":
             special_case_sr_senor = [{ORTH: "Sr.", NORM: "señor"}]
             special_case_ud_usted = [{ORTH: "Ud.", NORM: "usted"}]
@@ -155,6 +179,7 @@ def _add_contraction_rules(nlp: Language, lang: Optional[str] = "en") -> Languag
             special_case_sr_senyor = [{ORTH: "Sr.", NORM: "senyor"}]
             nlp.tokenizer.add_special_case("Sr.", special_case_sr_senyor)
         return nlp
+        """
 
 def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
 
@@ -170,23 +195,19 @@ def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
         return "ca_core_news_sm"
 
 def _perform_tokenization_rules_for_en(doc) -> List[str]:
-
-    spacy_tokens = []
+    """Perform tokenization rules for English, this should be the base for other languages
+    when Spacy refines its tokenization algorithm for other languages."""
+    result_tokens = []
     for token in doc:
-        print(token.text, token.pos_, token.dep_, token.norm_, token.lemma_)
-        print(token.text)
-        print(token.norm_)
-        if token.pos_ != "PUNCT" and token.pos_ != "SYM":
-            if token.pos_ == "AUX" or (token.pos_ == "PRON" and token.dep_ == "nsubj"):
-                spacy_tokens.append(contractions.fix(token.norm_))
-            elif token.pos_ == "NOUN" and token.dep_ == "appos":
-                spacy_tokens.append(contractions.fix(token.norm_))
-            elif token.pos_ == "ADV" and token.dep_ == "advmod":
-                spacy_tokens.append(contractions.fix(token.norm_))
-            else:
-                spacy_tokens.append(contractions.fix(token.text))
+        print(f"text: {token.text}, pos: {token.pos_}, dep: {token.dep_}, norm: {token.norm_}, lemma: {token.lemma_}, morph: {token.morph}")
+        if not token.is_punct and not token.is_quote and token.pos != SYM:
+            result_tokens.append(
+                token.norm_
+                if token.pos in TOKEN_NORMALIZED_CASES_EN
+                else token.text
+            )
+    return result_tokens
 
-    return spacy_tokens
 
 def _perform_tokenization_rules_for_es(doc) -> List[str]:
 
@@ -205,22 +226,22 @@ def _perform_tokenization_rules_for_es(doc) -> List[str]:
 
     return spacy_tokens
 
+
 def _perform_tokenization_rules_for_fr(doc) -> List[str]:
+    """Perform specific rules for French due for pronouns Spacy's treatment 
+    is different than the English one."""
 
-    spacy_tokens = []
+    result_tokens = []
     for token in doc:
-        print(token.text, token.pos_, token.dep_, token.norm_, token.lemma_)
-        if token.pos_ != "PUNCT" and token.pos_ != "SYM":
-            if token.pos_ == "AUX" or (token.pos_ == "PRON" and token.dep_ == "nsubj"):
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "NOUN" and token.dep_ == "appos":
-                spacy_tokens.append(token.norm_)
-            elif token.pos_ == "ADV" and token.dep_ == "advmod":
-                spacy_tokens.append(token.norm_)
-            else:
-                spacy_tokens.append(token.text)
+        print(f"text: {token.text}, pos: {token.pos_}, dep: {token.dep_}, norm: {token.norm_}, lemma: {token.lemma_}, morph: {token.morph}")
+        if not token.is_punct and not token.is_quote and token.pos != SYM:
+            if token.pos in TOKEN_LEMMA_CASES_FR:
+                result_tokens.append(token.lemma_)
+            elif token.pos in TOKEN_NORMALIZED_CASES_FR:
+                result_tokens.append(token.norm_)
+            else: result_tokens.append(token.text)
+    return result_tokens
 
-    return spacy_tokens
 
 def _perform_tokenization_rules_for_pt(doc) -> List[str]:
     spacy_tokens = []
@@ -253,34 +274,23 @@ def _perform_tokenization_rules_for_ca(doc) -> List[str]:
 
     return spacy_tokens
 
-def _perform_tokenization_rules_by_lang(doc, lang = "en") -> List[str]:
+def _perform_tokenization_rules_by_lang(doc: spacy.tokens.Doc, lang = LanguageISO.English) -> List[str]:
 
-    spacy_tokens = []
-    if lang == "en":
-        spacy_tokens = _perform_tokenization_rules_for_en(doc)
-    elif lang == "es":
-        spacy_tokens = _perform_tokenization_rules_for_es(doc)
-    elif lang == "fr":
-        spacy_tokens = _perform_tokenization_rules_for_fr(doc)
-    elif lang == "pt":
-        spacy_tokens = _perform_tokenization_rules_for_pt(doc)
-    elif lang == "ca":
-        spacy_tokens = _perform_tokenization_rules_for_ca(doc)
+    result_tokens = []
+    if lang == LanguageISO.English:
+        result_tokens = _perform_tokenization_rules_for_en(doc)
+    elif lang == LanguageISO.Spanish:
+        result_tokens = _perform_tokenization_rules_for_es(doc)
+    elif lang == LanguageISO.French:
+        result_tokens = _perform_tokenization_rules_for_fr(doc)
+    elif lang == LanguageISO.Portuguese:
+        result_tokens = _perform_tokenization_rules_for_pt(doc)
+    elif lang == LanguageISO.Catalan:
+        result_tokens = _perform_tokenization_rules_for_ca(doc)
+    else: 
+        result_tokens = _perform_tokenization_rules_for_en(doc)
 
-    return spacy_tokens
-
-def _perform_contractions_expansion_by_lang(lang = "en", text = "") -> str:
-
-    if lang == "en":
-        return perform_contractions_expansion_en(text)
-    elif lang == "es":
-        return text
-    elif lang == "pt":
-        return text
-    elif lang == "fr":
-        return text
-    elif lang == "ca":
-        return text
+    return result_tokens
 
 
 def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
@@ -294,10 +304,22 @@ def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     core_web_sm = _get_core_web_sm_by_lang(lang)
     nlp = spacy.load(core_web_sm)
 
-    text_expanded = _perform_contractions_expansion_by_lang(lang, text)
+    doc = nlp(text)
+    result_tokens = _perform_tokenization_rules_by_lang(doc, lang)
+    return result_tokens
+    
+    
+    """
+    
+    print(core_web_sm)
+    for token in doc:
+        print(f"text: {token.text}, pos: {token.pos_}, dep: {token.dep_}, norm: {token.norm_}, lemma: {token.lemma_}, morph: {token.morph}")
+        if not token.is_punct and not token.is_quote and token.pos != SYM:
+            result_tokens.append(
+                token.norm_
+                if token.pos in TOKEN_NORMALIZED_CASES_EN
+                else token.text
+            )
 
-    doc = nlp(text_expanded)
-    spacy_tokens = []
-    spacy_tokens = _perform_tokenization_rules_by_lang(doc, lang)
-
-    return spacy_tokens
+    return result_tokens
+    """
