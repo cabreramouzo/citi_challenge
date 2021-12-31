@@ -6,18 +6,20 @@ from spacy.symbols import SYM
 
 from common.lang import LanguageISO
 
-def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
+_MAPPING_LANG_SM = {
+    LanguageISO.English: "en_core_web_sm",
+    LanguageISO.Spanish: "es_core_news_sm",
+    LanguageISO.Portuguese: "pt_core_news_sm",
+    LanguageISO.French: "fr_core_news_sm",
+    LanguageISO.Catalan: "ca_core_news_sm"
+}
 
-    if lang == "en":
-        return "en_core_web_sm"
-    elif lang == "es":
-        return "es_core_news_sm"
-    elif lang == "pt":
-        return "pt_core_news_sm"
-    elif lang == "fr":
-        return "fr_core_news_sm"
-    elif lang == "ca":
-        return "ca_core_news_sm"
+def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
+    """
+    Map between lang and core_web_sm, returns english by default 
+    if there is invalid lang.
+    """
+    return _MAPPING_LANG_SM.get(lang, "en_core_web_sm")
 
 def _get_token_representation(token: Token) -> Optional[str]:
     """
