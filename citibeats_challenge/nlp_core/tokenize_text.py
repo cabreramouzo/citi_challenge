@@ -1,13 +1,8 @@
-from logging import debug
 from typing import List, Optional
-import pdb
 
 import spacy
-from spacy import Language
-from spacy import language
-from spacy.symbols import ORTH, LEMMA, POS, TAG, NORM
-from spacy.symbols import NOUN, ADV, ADP, AUX, DET, ADJ, PRON, SYM
-from spacy.lang import en
+from spacy.tokens import Token
+from spacy.symbols import SYM
 
 from common.lang import LanguageISO
 
@@ -24,8 +19,25 @@ def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
     elif lang == "ca":
         return "ca_core_news_sm"
 
+def _get_token_representation(token: Token) -> Optional[str]:
+    """
+    Returns the token representation. The function will try to match the proper
+    contraction of the passed token, if there isn't any, it will return its
+    text representation.
+    """
+    if token.is_punct or token.is_quote or token.pos == SYM:
+        return
 
-
+    token_repr = [
+        token.text, 
+        token.lemma_, 
+        token.norm_, 
+        token.orth_
+    ]
+    for repr in token_repr:
+        if "'" not in repr:
+            return repr 
+    return token_repr[0]
 
 def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     """
@@ -41,13 +53,7 @@ def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     doc = nlp(text)
     result_tokens = []
     for token in doc:
-        repr = [token.text, token.lemma_, token.norm_, token.orth_]
-        #breakpoint()
-        if token.is_punct or token.is_quote or token.pos == SYM:
-            continue
-        for r in repr:
-            if "'" not in r:
-                result_tokens.append(r)
-                break
-
+        token_repr = _get_token_representation(token)
+        if token_repr:
+            result_tokens.append(token_repr)
     return result_tokens

@@ -35,7 +35,7 @@ def test_text_tokenize_sample2_es():
     tkns = get_tokens(text=text, lang="es")
     res = ["En", "un", "lugar", "de", "la", "Mancha", "de", "cuyo", "nombre", "no", "quiero", "acordarme", "no", "ha", "mucho", 
         "tiempo", "que", "vivía", "un", "hidalgo", "de", "los", "de", "lanza", "en", "astillero", "adarga", "antigua", "rocín", 
-        "flaco", "y", "galgo", "corredor", "gran", "madrugador", "y", "amigo", "de", "la", "caza", "Quieren", "decir", "que", 
+        "flaco", "y", "galgo", "corredor", "Gran", "madrugador", "y", "amigo", "de", "la", "caza", "Quieren", "decir", "que", 
         "tenía", "el", "sobrenombre", "de", "Quijada", "o", "Quesada"
     ]
     print("Output->", tkns)
