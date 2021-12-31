@@ -4,6 +4,7 @@ import spacy
 from spacy.tokens import Token
 from spacy.symbols import SYM
 
+from nlp_core.exceptions import NLPCoreException
 from common.lang import LanguageISO
 
 _MAPPING_LANG_SM = {
@@ -50,7 +51,11 @@ def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     """
     # Load English tokenizer, tagger, parser and NER
     core_web_sm = _get_core_web_sm_by_lang(lang)
-    nlp = spacy.load(core_web_sm)
+    try:
+        nlp = spacy.load(core_web_sm)
+    except (IOError, ImportError, ValueError):
+        raise NLPCoreException("Could not load spaCy lang module")
+
 
     doc = nlp(text)
     result_tokens = []
