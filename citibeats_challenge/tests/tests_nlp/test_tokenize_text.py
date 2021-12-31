@@ -85,9 +85,7 @@ def xtest_text_tokenize_contraction_je_l_ai_fr():
     tkns = get_tokens(text=text, lang="fr")
     assert(tkns == expected)
 
-def xtest_text_tokenize_contraction_que_il_fr():
-    """Bug qu'il, sapcy treats as pronoun and is a preposition (in POS: ADP)"""
-    #No treates properly by spacy: qu'il
+def test_text_tokenize_contraction_que_il_fr():
     text = "qu'il"
     expected = ["que", "il"]
     tkns = get_tokens(text=text, lang="fr")
