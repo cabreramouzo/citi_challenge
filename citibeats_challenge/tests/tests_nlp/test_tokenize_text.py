@@ -45,7 +45,7 @@ def xtest_text_tokenize_sample_en_what_ve():
     text = "Agent Smith: As you can see, what've had our eye on you for some time now, Mr. Anderson."
     tkns = get_tokens(text=text, lang="en")
     expected = ["Agent","Smith","As","you","can","see","what","have","had","our","eye","on","you","for","some","time","now","Mr.","Anderson"]
-    assert( tkns == expected)
+    assert(tkns == expected)
 
 def test_text_tokenize_sample_en(sample_en_agent_smith):
     tkns = get_tokens(text=sample_en_agent_smith, lang="en")
@@ -65,7 +65,7 @@ def test_text_tokenize_sample2_es(sample_es_quijote):
         "flaco", "y", "galgo", "corredor", "Gran", "madrugador", "y", "amigo", "de", "la", "caza", "Quieren", "decir", "que", 
         "tenía", "el", "sobrenombre", "de", "Quijada", "o", "Quesada"
     ]
-    assert( tkns == expected)
+    assert(tkns == expected)
 
 def test_text_tokenize_sample_fr(sample_fr_agent_smith):
     '''Due spacy has some bugs in French mode, I change the test case. 'Smith' is a proper nound but spacy thinks that is an adjective.
@@ -75,7 +75,7 @@ def test_text_tokenize_sample_fr(sample_fr_agent_smith):
     expected = ["Agent","Smith","Comme","vous","pouvez","le","voir","nous","vous","surveillons","depuis","un","certain","temps","M.","Anderson"]
     print("Output->", tkns)
     print("Sample ->", expected)
-    assert( tkns == expected)
+    assert(tkns == expected)
 
 def xtest_text_tokenize_contraction_je_l_ai_fr():
     """Bug je l'ai, sapcy treats as pronoun and is a preposition (in POS: ADP)"""
@@ -100,7 +100,7 @@ def test_text_tokenize_contractions_fr():
     tkns = [] 
     for phrase in text:
         tkns.append( get_tokens(text=phrase, lang="fr") )
-    assert( tkns == expected)
+    assert(tkns == expected)
 
 def test_text_tokenize_sample_pt(sample_pt_agent_smith):
     '''Same case like Spanish or French,'''
