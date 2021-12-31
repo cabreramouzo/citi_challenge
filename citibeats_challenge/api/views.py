@@ -18,6 +18,6 @@ class TokensView(views.APIView):
         try:
             tokens = tokenize_text.get_tokens(**text_lang.data)
         except NLPCoreException as e:
-            return Response(f"Internal error {e}", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response(f"error {e}", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         tokens = TokenSerializer(tokens).data
         return Response(tokens, status=status.HTTP_200_OK)
