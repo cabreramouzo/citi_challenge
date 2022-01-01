@@ -17,5 +17,5 @@ RUN python -m spacy download en_core_web_sm && \
 
 COPY . /citibeats
 
-EXPOSE 8080
+EXPOSE 8080  
 CMD ["./entrypoint.sh"]
