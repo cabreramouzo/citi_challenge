@@ -2,6 +2,7 @@ import pytest
 
 from nlp_core.tokenize_text import get_tokens
 
+
 @pytest.fixture
 def sample_en_agent_smith():
      text = "Agent Smith: As you can see, we've had our eye on you for some time now, Mr. Anderson."
@@ -12,6 +13,7 @@ def sample_en_agent_smith():
 def sample_es_agent_smith():
     text = "Agente Smith: Cómo Ud. puede ver, le hemos echado un ojo desde hace algún tiempo, Sr. Anderson."
     return text
+
 
 @pytest.fixture
 def sample_fr_agent_smith():
