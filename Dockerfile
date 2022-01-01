@@ -15,7 +15,15 @@ RUN python -m spacy download en_core_web_sm && \
     python -m spacy download fr_core_news_sm && \
     python -m spacy download ca_core_news_sm
 
+## ARGS & Envs
+ARG DJANGO_SUPERUSER_USERNAME
+ARG DJANGO_SUPERUSER_PASSWORD
+ARG DJANGO_SUPERUSER_EMAIL
+
+ENV DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+ENV DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+ENV DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+
 COPY . /citibeats
 
-EXPOSE 8080  
 CMD ["./entrypoint.sh"]
