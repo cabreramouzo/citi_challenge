@@ -5,6 +5,7 @@ class LanguageISO(str, Enum):
     """
     Language ISO 639-1 standard
     """
+
     English = "en"
     Spanish = "es"
     Portuguese = "pt"
