@@ -12,7 +12,7 @@ class TokensView(views.APIView):
     """
     name = "tokens-viewset"
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         text_lang = TextSerializer(data=request.data)
         text_lang.is_valid(raise_exception=True)
         try:

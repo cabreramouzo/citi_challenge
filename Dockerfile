@@ -6,7 +6,7 @@ RUN apt update
 WORKDIR /citibeats
 COPY requirements.txt .
 
-RUN pip install spacy
+RUN pip install poetry
 RUN pip install -r requirements.txt
 
 RUN python -m spacy download en_core_web_sm && \
