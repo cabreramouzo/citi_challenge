@@ -56,7 +56,6 @@ def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
     except (IOError, ImportError, ValueError):
         raise NLPCoreException("Could not load spaCy lang module")
 
-
     doc = nlp(text)
     result_tokens = []
     for token in doc:
