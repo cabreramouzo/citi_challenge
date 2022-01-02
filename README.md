@@ -11,11 +11,11 @@ NLP tokenizer challenge. Based on the [spaCy](https://spacy.io) NLP library. The
 - [ ] Detect language
 
 # Learns:
-This project allowed me to understand better how to create a system as a micro-service, dockerize it and deploy it in Heroku. Also I learn a lot about NLP and how to handle with text tokenization. For me was a big challenge beacause I never build a docker project before and also was my first project deployed in Heroku.
+This project allowed me to understand better how to create a system as a micro-service, dockerize it and deploy it in Heroku. Also, I learned a lot about NLP and how to handle text tokenization. For me was a big challenge because I had never build a docker project before and also was my first project deployed in Heroku.
 
 I also have some difficulties, mainly with NLP tokenization and handling with spaCy library, because it has a pretty amount of things to understand how the library manages tokenization and how it performs categorization. Due to every language is different, for me was pretty difficult to develop a single code to manage all languages supported by this system.
 
-I needed to adapt to new thigs, tools and frameworks for me like software architecture, virtual enviroments for python, [Django REST framework](https://www.django-rest-framework.org), [docker](https://www.docker.com), [poetry](https://python-poetry.org), testing, [Heroku](https://id.heroku.com/login), django apps inside project, and many more :)
+I needed to adapt to all-new things, tools and frameworks for me like software architecture in django, virtual enviroments for python, [Django REST framework](https://www.django-rest-framework.org), [docker](https://www.docker.com), [poetry](https://python-poetry.org), testing, [Heroku](https://id.heroku.com/login), django apps inside project, and many more :)
 
 # Requeriments
 
