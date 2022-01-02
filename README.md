@@ -41,7 +41,7 @@ cd citi_challenge/citibeats_challenge
 pytest
 ```
 
-```
+
 Docker
 ```
 docker build . -t citibeats_challenge:local_dev
@@ -52,8 +52,14 @@ docker run --rm -p 8080:8080 citibeats_challenge:local_dev
 ```bash
 curl -XPOST -H 'Content-Type: application/json' \
 --data '{"text": "this is a sample", "lang": "en"}' \
-'http://localhost:8080/api/tokenize/'
+'http://localhost:8080/api/tokenize'
 ```
+Caution with single cuotes in `curl` command:
+```bash
+curl -XPOST -H 'Content-Type: '{"text": "Let'\''s go now people!"}'
+```
+> [!NOTE]
+> Note that `lang` param in the request is optional and spaCy will try to detect it, but the `text` should be in English, Spanish, French, Portuguese or Catalan.
 
 # Endpoints
 |endpoint|method|data|
