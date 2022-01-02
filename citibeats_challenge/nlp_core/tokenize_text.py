@@ -3,6 +3,8 @@ from typing import List, Optional
 import spacy
 from spacy.symbols import SYM
 from spacy.tokens import Token
+from spacy.language import Language
+from spacy_langdetect import LanguageDetector
 
 from common.lang import LanguageISO
 from nlp_core.exceptions import NLPCoreException
@@ -15,6 +17,18 @@ _MAPPING_LANG_SM = {
     LanguageISO.French: "fr_core_news_sm",
     LanguageISO.Catalan: "ca_core_news_sm",
 }
+
+def _get_lang_detector(nlp, name):
+    return LanguageDetector()
+
+
+def detect_lang(text: str) -> LanguageISO:
+    nlp = spacy.load("en_core_web_sm")
+    Language.factory("language_detector", func=_get_lang_detector)
+    nlp.add_pipe('language_detector', last=True)
+    doc = nlp(text)
+    lang = doc._.language['language']
+    return LanguageISO(lang)
 
 
 def _get_core_web_sm_by_lang(lang: Optional[str] = "en") -> str:
@@ -41,13 +55,17 @@ def _get_token_representation(token: Token) -> Optional[str]:
     return token_repr[0]
 
 
-def get_tokens(*, text: str, lang: Optional[str] = "en") -> List[str]:
+def get_tokens(*, text: str, lang: Optional[str] = "") -> List[str]:
     """
     Returns a list of tokens from a given text and language params.
     :param text: The text to tokenize in English, Spanish, Portuguese or French.
     :param lang: The ISO code of the lenguage (optional).
     :return: A list of tokens of the input text.
     """
+    #Lang detection
+    if not lang:
+        lang = detect_lang(text)
+
     # Load English tokenizer, tagger, parser and NER
     core_web_sm = _get_core_web_sm_by_lang(lang)
     try:
