@@ -61,9 +61,22 @@ def test_text_tokenize_sample_en(sample_en_agent_smith):
     assert(tokens == expected)
 
 
+def test_text_tokenize_sample_en_no_lang(sample_en_agent_smith):
+    tokens = get_tokens(text=sample_en_agent_smith)
+    expected = ["Agent","Smith","As","you","can","see","we","have","had","our","eye","on","you","for","some","time","now","Mr.","Anderson"]
+    assert(tokens == expected)
+
+
 def test_text_tokenize_sample_es(sample_es_agent_smith):
     text = sample_es_agent_smith
     tokens = get_tokens(text=sample_es_agent_smith, lang="es")
+    expected = ["Agente","Smith","Cómo","Ud.","puede","ver","le","hemos","echado","un","ojo","desde","hace","algún","tiempo","Sr.","Anderson"]
+    assert(tokens == expected)
+
+
+def test_text_tokenize_sample_es_no_lang(sample_es_agent_smith):
+    text = sample_es_agent_smith
+    tokens = get_tokens(text=sample_es_agent_smith)
     expected = ["Agente","Smith","Cómo","Ud.","puede","ver","le","hemos","echado","un","ojo","desde","hace","algún","tiempo","Sr.","Anderson"]
     assert(tokens == expected)
 
@@ -87,6 +100,11 @@ def test_text_tokenize_sample_fr(sample_fr_agent_smith):
     expected = ["Agent","Smith","Comme","vous","pouvez","le","voir","nous","vous","surveillons","depuis","un","certain","temps","M.","Anderson"]
     assert(tokens == expected)
 
+
+def test_text_tokenize_sample_fr_no_lang(sample_fr_agent_smith):
+    tokens = get_tokens(text=sample_fr_agent_smith)
+    expected = ["Agent","Smith","Comme","vous","pouvez","le","voir","nous","vous","surveillons","depuis","un","certain","temps","M.","Anderson"]
+    assert(tokens == expected)
 
 @pytest.mark.skip("Bug je l'ai, sapcy treats as pronoun but is a preposition (in POS: ADP)")
 def test_text_tokenize_contraction_je_l_ai_fr():
@@ -132,8 +150,21 @@ def test_text_tokenize_sample_pt(sample_pt_agent_smith):
     assert(tokens == expected)
 
 
+def test_text_tokenize_sample_pt_no_lang(sample_pt_agent_smith):
+    '''Same case like Spanish or French, but its fixed again with the get_tokens algorithm'''
+    tokens = get_tokens(text=sample_pt_agent_smith)
+    expected = ["Agente", "Smith", "Como", "você", "pode", "ver", "estamos", "de", "olho", "em", "você", "há", "algum", "tempo", "Sr.", "Anderson"]
+    assert(tokens == expected)
+
+
 def test_text_tokenize_sample_ca(sample_ca_agent_smith):
     tokens = get_tokens(text=sample_ca_agent_smith, lang="ca")
+    expected = ["Agent", "Smith", "Com", "vostè", "pot", "veure", "li", "hem", "fet", "una", "ullada", "des", "de", "fa", "un", "temps", "Sr.", "Anderson"]
+    assert(tokens == expected)
+
+
+def test_text_tokenize_sample_ca_no_lang(sample_ca_agent_smith):
+    tokens = get_tokens(text=sample_ca_agent_smith)
     expected = ["Agent", "Smith", "Com", "vostè", "pot", "veure", "li", "hem", "fet", "una", "ullada", "des", "de", "fa", "un", "temps", "Sr.", "Anderson"]
     assert(tokens == expected)
 
