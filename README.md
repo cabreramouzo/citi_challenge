@@ -8,7 +8,7 @@ NLP tokenizer challenge. Based on the [spaCy](https://spacy.io) NLP library. The
 - [x] Docker
 - [x] gunicorn 
 - [x] Heroku
-- [ ] Detect language
+- [x] Detect language
 
 # Learns:
 This project allowed me to understand better how to create a system as a micro-service, dockerize it and deploy it in Heroku. Also, I learned a lot about NLP and how to handle text tokenization. For me was a big challenge because I had never build a docker project before and also was my first project deployed in Heroku.
