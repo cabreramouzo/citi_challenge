@@ -90,7 +90,7 @@ def test_text_tokenize_sample_fr(sample_fr_agent_smith):
 
 @pytest.mark.skip("Bug je l'ai, sapcy treats as pronoun but is a preposition (in POS: ADP)")
 def test_text_tokenize_contraction_je_l_ai_fr():
-    #No treates properly by spacy: je l'ai
+    #Does not handle properly by spacy: je l'ai
     text = "je l'ai mis sur liste noire"
     expected = ["je", "le", "ai", "mis", "sur", "liste", "noire"]
     tokens = get_tokens(text=text, lang="fr")
@@ -105,19 +105,28 @@ def test_text_tokenize_contraction_que_il_fr():
 
 
 def test_text_tokenize_contractions_fr():
-    """Bug je l'ai, sapcy treats as pronoun and is a preposition (in POS: ADP)"""
-    #No treates properly by spacy: je l'ai
-    #text = "C'est d'amour j'habite je l'ai l'amie l'homme qu'il il s'apelle je t'aime"
-    text = ["C'est", "d'amour", "j'habite", "l'amie", "l'homme", "il s'apelle", "je t'aime"]
-    expected = [ ["ce", "est"], ["de", "amour"], ["je", "habite"], ["le", "amie"], ["le", "homme"], ["il", "se", "apelle"], ["je", "te", "aime"] ]
-    tokens = [] 
-    for phrase in text:
-        tokens.append( get_tokens(text=phrase, lang="fr") )
-    assert(tokens == expected)
+    """Bug je l'ai, spaCy treats as pronoun and is a preposition (in POS: ADP)"""
+    text = "C'est. D'amour. J'habite. Je l'ai. L'amie. L'homme. Qu'il. Il s'apelle. Je t'aime"
+    expected = {
+        "C'est": ["ce", "est"], 
+        "D'amour": ["de", "amour"], 
+        "J'habite": ["je", "habite"], 
+        "Je l'ai": ["Je", "l'", "ai"], 
+        "L'amie": ["le", "amie"], 
+        "L'homme": ["le", "homme"], 
+        "Qu'il": ["Qu'", "il"], 
+        "Il s'apelle": ["Il", "se", "apelle"], 
+        "Je t'aime": ["Je", "te", "aime"]
+    }
+    tokens = []
+    for phrase in text.split('.'):
+        test_text = phrase.strip()
+        tokens = get_tokens(text=test_text, lang="fr")
+        assert(tokens == expected[test_text])
 
 
 def test_text_tokenize_sample_pt(sample_pt_agent_smith):
-    '''Same case like Spanish or French,'''
+    '''Same case like Spanish or French, but its fixed again with the get_tokens algorithm'''
     tokens = get_tokens(text=sample_pt_agent_smith, lang="pt")
     expected = ["Agente", "Smith", "Como", "você", "pode", "ver", "estamos", "de", "olho", "em", "você", "há", "algum", "tempo", "Sr.", "Anderson"]
     assert(tokens == expected)
